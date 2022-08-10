@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>在线文言文字典</h1>
+    <form action="{% url 'wenyan:search_result' %}" method="get">
+        <input type="text" name="search">
+        <button type="submit">search</button>
+    </form>
+</body>
+</html>

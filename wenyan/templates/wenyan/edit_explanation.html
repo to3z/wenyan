@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>编辑解释——{{word.word_text}}</h1>
+    <ul>
+    {% for explanation in word.explanation_set.all %}
+        <li>
+            [{{explanation.part_of_speech}}]{{explanation.explanation_text}}
+            <br />
+            <a href="{% url 'wenyan:edit_sentence' explanation.id %}">编辑例句</a>
+        </li>
+    {% endfor %}
+    </ul>
+    <form action="{% url 'wenyan:submit_explanation' word.id %}" method="post">
+    {% csrf_token %}
+        <select name="part_of_speech">
+        {% for choice in part_of_speech_options %}
+            <option value="{{choice}}">{{choice}}</option>
+        {% endfor %}
+        </select>
+        <select name="live_use">
+        {% for choice in live_use_options %}
+            <option value="{{choice}}">{{choice}}</option>
+        {% endfor %}
+        </select>
+        <label><input type="checkbox" name="gu_jin" value="gu_jin">古今异义</label>
+        <p>解释：<input name="explanation_text" type="text"></p>
+        <button type="submit">OK</button>
+    </form>
+    <a href="{% url 'wenyan:word' word.word_text %}">退出</a>
+</body>
+</html>

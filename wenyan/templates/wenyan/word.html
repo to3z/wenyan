@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+{% load wenyan_extras %}
+    <h1>{{word_text}}</h1>
+{% if not word %}
+    <p>你查找的词还未被收录，你可以向字典中添加这个词。</p>
+{% endif %}
+{% if word %}
+{% for explanation in word.explanation_set.all %}
+    <h2>[{{explanation.part_of_speech}}]{{explanation.explanation_text}}</h2>
+    <p>
+    {% for sentence in explanation.sentence_set.all %}
+        {{sentence|highlight}}——{{sentence.chuchu}}
+        <br />
+    {% endfor %}
+    </p>
+{% endfor %}
+{% endif %}
+    <a href="{% url 'wenyan:edit_explanation' word_text %}">编辑</a>
+    <a href="{% url 'wenyan:index' %}">搜索</a>
+</body>
+</html>
