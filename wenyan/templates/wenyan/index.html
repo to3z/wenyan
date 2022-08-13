@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+{% load static %}
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'wenyan/img/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'wenyan/index.css' %}">
 </head>
 <body>
-    <h1>在线文言文字典</h1>
-    <form action="{% url 'wenyan:search_result' %}" method="get">
-        <input type="text" name="search">
-        <button type="submit">search</button>
-    </form>
+    <div id="topOfTheWorld">
+        <ul id="naviBar">
+            <li class="naviLink"><a class="topA" href="https://ruaruarua.neocities.org/frontpage.html">答题</a></li>
+            <li class="naviLink curPage"><a class="topA" href="{% url 'wenyan:index' %}">搜索</a></li>
+        </ul>
+    </div>
+    <p id="title">在线文言文字典</p>
+    <div id="searchWrap">
+        <form action="{% url 'wenyan:search_result' %}" method="get">
+            <input type="text" name="search" id="search">
+            <input type="submit" id="submit" value=" ">
+        </form>
+    </div>
 </body>
 </html>

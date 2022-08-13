@@ -1,0 +1,55 @@
+*{
+    font-family: "STSong";
+    font-weight: bold;
+}
+/* topOfTheWorld */
+#topOfTheWorld{
+    width:100%;
+    left:0px;
+    top:0px;
+    position:fixed;
+}
+#naviBar{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+.naviLink{
+    float:left;
+}
+.naviRLink{
+    float:right;
+}
+.curPage{
+    border-bottom: 2px rgb(55, 89, 152) solid;
+    background-color: rgb(223, 240, 255);
+}
+.topA{
+    text-decoration: none;
+    font-size:30px;
+    display:block;
+    padding:20px;
+    color:rgb(55, 89, 152);
+}
+.topA:hover{
+    color:rgb(91, 130, 202);
+    background-color: rgb(223, 240, 255);
+}
+/* endOfTheWorld */
+#word{
+    font-size: 60px;
+    text-align: center;
+}
+.explanation{
+    font-size:40px;
+}
+.sentence{
+    margin-left:40px;
+    font-size:25px;
+}
+.highlight{
+    color:rgb(55, 89, 152);
+}
+#notFoundInfo{
+    font-size:30px;
+}

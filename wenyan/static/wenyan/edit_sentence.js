@@ -27,13 +27,13 @@ sentence_text.onchange=function()
     }
     appear_choice.innerHTML="";
     if(appear_pos.length>0)
-        appear_choice.innerHTML=highlight(sentence,appear_pos[0],appear_pos[0]+word.length,true);
+        appear_choice.innerHTML+=highlight(sentence,appear_pos[0],appear_pos[0]+word.length,true)+'<br />';
     for(let i=1;i<appear_pos.length;++i)
-        appear_choice.innerHTML=highlight(sentence,appear_pos[i],appear_pos[i]+word.length,true);
+        appear_choice.innerHTML+=highlight(sentence,appear_pos[i],appear_pos[i]+word.length,false)+'<br />';
 }
 function single_tongjia()
 {
-    return `<input type=text" name="before">同<input type="text" name="after">`;
+    return `<input type=text" class="textInput shortInput" name="before" required>同<input type="text" class="shortInput" name="after" required>`;
 }
 tongjia_count.onchange=function()
 {
@@ -43,4 +43,12 @@ tongjia_count.onchange=function()
     tongjia_input.innerHTML="";
     for(let i=0;i<cnt;++i)
         tongjia_input.innerHTML+=single_tongjia()+"<br />";
+}
+addSentence.onclick=function(){
+    document.getElementById("formWrap").style.display="block";
+    this.style.display="none";
+}
+backButton.onclick=function(){
+    document.getElementById("formWrap").style.display="none";
+    document.getElementById("addSentence").style.display="flex";
 }

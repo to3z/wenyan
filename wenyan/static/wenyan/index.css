@@ -1,0 +1,63 @@
+*{
+    font-family: "STSong";
+    font-weight: bold;
+    text-align: center;
+}
+/* topOfTheWorld */
+#topOfTheWorld{
+    width:100%;
+    left:0px;
+    top:0px;
+    position:fixed;
+}
+#naviBar{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+.naviLink{
+    float:left;
+}
+.naviRLink{
+    float:right;
+}
+.curPage{
+    border-bottom: 2px rgb(55, 89, 152) solid;
+    background-color: rgb(223, 240, 255);
+}
+.topA{
+    text-decoration: none;
+    font-size:30px;
+    display:block;
+    padding:20px;
+    color:rgb(55, 89, 152);
+}
+.topA:hover{
+    color:rgb(91, 130, 202);
+    background-color: rgb(223, 240, 255);
+}
+/* endOfTheWorld */
+#title{
+    margin-top:90px;
+    font-size: 70px;
+    color:rgb(55, 89, 152);
+}
+#search{
+    text-align: left;
+    height:50px;
+    width:60%;
+    border:4px rgb(55, 89, 152) solid;
+    color:rgb(55, 89, 152);
+    font-size:34px;
+    padding-left:10px;
+}
+#submit{
+    height:50px;
+    width:50px;
+    background:url("img/scanner.png");
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    border: none;
+    margin-left: 10px;
+    font-size:34px;
+}

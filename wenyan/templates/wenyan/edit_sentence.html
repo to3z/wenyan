@@ -1,33 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-</head>
-<body>
 {% load static %}
 {% load wenyan_extras %}
-    <h1>编辑例句——{{word_text}}——[{{explanation.part_of_speech}}]{{explanation.explanation_text}}</h1>
-    <ul>
-    {% for sentence in explanation.sentence_set.all %}
-        <li>{{sentence|highlight}}——{{sentence.chuchu}}</li>
-    {% endfor %}
-    </ul>
-    <form action="{% url 'wenyan:submit_sentence' explanation.id %}" method="post">
-    {% csrf_token %}
-        <input type="hidden" value="{{word_text}}" id="word_text">
-        <select name="jushi">
-        {% for choice in jushi_options %}
-            <option value="{{choice}}">{{choice}}</option>
-        {% endfor %}
-        </select>
-        <p>例句内容：<input type="text" name="sentence_text" id="sentence_text"></p>
-        <p id="appear_choice"></p>
-        <p>例句中包含<input type="text" name="tongjia_count" id="tongjia_count">个通假字</p>
-        <p id="tongjia_input"></p>
-        <p>出处<input type="text" name="chuchu"></p>
-        <button type="submit">OK</button>
-    </form>
-    <a href="{% url 'wenyan:edit_explanation' word_text %}">退出</a>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'wenyan/edit_sentence.css' %}">
+</head>
+<body>
+    <div id="topOfTheWorld">
+        <ul id="naviBar">
+            <li class="naviLink"><a class="topA" href="https://ruaruarua.neocities.org/frontpage.html">答题</a></li>
+            <li class="naviLink"><a class="topA" href="{% url 'wenyan:index' %}">搜索</a></li>
+            <li class="naviRLink"><a class="topA" href="{% url 'wenyan:edit_explanation' word_text %}">返回</a></li>
+        </ul>
+    </div>
+    <p id="word">编辑例句——{{word_text}}</p>
+    <p id="explanation">[{{explanation.part_of_speech}}]{{explanation.explanation_text}}</p>
+{% for sentence in explanation.sentence_set.all %}
+    <div class="sentenceWrap">
+        <p class="sentenceItem">
+            {{sentence|highlight}}——{{sentence.chuchu}}
+        </p>
+    </div>
+{% endfor %}
+    <div class="sentenceWrap" id="addSentence">
+        <p class="sentenceItem">添加例句...</p>
+    </div>
+    <div id="formWrap">
+        <form action="{% url 'wenyan:submit_sentence' explanation.id %}" method="post">
+        {% csrf_token %}
+            <input type="hidden" value="{{word_text}}" id="word_text">
+            <p>特殊句式：
+            <select name="jushi">
+            {% for choice in jushi_options %}
+                <option value="{{choice}}">{{choice}}</option>
+            {% endfor %}
+            </select>
+            </p>
+            <p>例句内容：<input class="textInput" type="text" name="sentence_text" id="sentence_text" required></p>
+            <p id="appear_choice"></p>
+            <p>例句中包含<input type="text" name="tongjia_count" id="tongjia_count" required>个通假字</p>
+            <p id="tongjia_input"></p>
+            <p>出处：<input class="textInput" type="text" name="chuchu" required></p>
+            <div class="buttonWrap">
+                <button type="button" id="backButton" class="darkButton"> BACK </button>
+                <button type="submit" class="darkButton"> OK </button>
+            </div>
+        </form>
+    </div>
     <script src="{% static 'wenyan/edit_sentence.js' %}"></script>
 </body>
 </html>

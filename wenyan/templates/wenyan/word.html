@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+{% load static %}
     <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'wenyan/word.css' %}">
 </head>
 <body>
 {% load wenyan_extras %}
-    <h1>{{word_text}}</h1>
+    <div id="topOfTheWorld">
+        <ul id="naviBar">
+            <li class="naviLink"><a class="topA" href="https://ruaruarua.neocities.org/frontpage.html">答题</a></li>
+            <li class="naviLink"><a class="topA" href="{% url 'wenyan:index' %}">搜索</a></li>
+            <li class="naviRLink"><a class="topA" href="{% url 'wenyan:edit_explanation' word_text %}">编辑</a></li>
+        </ul>
+    </div>
+    <p id="word">{{word_text}}</p>
 {% if not word %}
-    <p>你查找的词还未被收录，你可以向字典中添加这个词。</p>
+    <p id="notFoundInfo">你查找的词还未被收录，你可以通过右上角的【编辑】向字典中添加这个词。</p>
 {% endif %}
 {% if word %}
 {% for explanation in word.explanation_set.all %}
-    <h2>[{{explanation.part_of_speech}}]{{explanation.explanation_text}}</h2>
-    <p>
+    <p class="explanation">[{{explanation.part_of_speech}}]&emsp;{{explanation.explanation_text}}</p>
+    <p class="sentence">
     {% for sentence in explanation.sentence_set.all %}
         {{sentence|highlight}}——{{sentence.chuchu}}
         <br />
@@ -20,7 +29,5 @@
     </p>
 {% endfor %}
 {% endif %}
-    <a href="{% url 'wenyan:edit_explanation' word_text %}">编辑</a>
-    <a href="{% url 'wenyan:index' %}">搜索</a>
 </body>
 </html>

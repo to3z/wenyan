@@ -1,0 +1,85 @@
+*{
+    font-family: "STSong";
+    font-weight: bold;
+    font-size:30px;
+}
+/* topOfTheWorld */
+#topOfTheWorld{
+    width:100%;
+    left:0px;
+    top:0px;
+    position:fixed;
+}
+#naviBar{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+.naviLink{
+    float:left;
+}
+.naviRLink{
+    float:right;
+}
+.curPage{
+    border-bottom: 2px rgb(55, 89, 152) solid;
+    background-color: rgb(223, 240, 255);
+}
+.topA{
+    text-decoration: none;
+    font-size:30px;
+    display:block;
+    padding:20px;
+    color:rgb(55, 89, 152);
+}
+.topA:hover{
+    color:rgb(91, 130, 202);
+    background-color: rgb(223, 240, 255);
+}
+/* endOfTheWorld */
+#word{
+    font-size: 60px;
+    text-align: center;
+}
+#explanation{
+    font-size: 40px;
+    text-align: center;
+}
+#formWrap{
+    display:none;
+}
+.sentenceItem{
+    padding:10px;
+    box-sizing: border-box;
+}
+.highlight{
+    color:rgb(55, 89, 152);
+}
+.sentenceWrap:hover{
+    background-color: rgb(223, 240, 255);
+}
+.sentenceWrap{
+    display: flex;
+    justify-content: space-between;
+}
+.textInput{
+    font-size:25px;
+    height:30px;
+}
+.shortInput{
+    width:70px;
+}
+.darkButton{
+    border:none;
+    padding:7px 3px 3px 3px;
+    float:left;
+    width:50%;
+    color: rgb(55, 89, 152);
+    background-color: rgb(223, 240, 255);
+    box-sizing:border-box;
+    text-align:center;
+    font-family:Times;
+}
+.darkButton:hover{
+    color:rgb(91, 130, 202);
+}
