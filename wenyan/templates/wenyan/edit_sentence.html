@@ -16,10 +16,10 @@
     </div>
     <p id="word">编辑例句——{{word_text}}</p>
     <p id="explanation">[{{explanation.part_of_speech}}]{{explanation.explanation_text}}</p>
-{% for sentence in explanation.sentence_set.all %}
+{% for example in explanation.example_set.all %}
     <div class="sentenceWrap">
         <p class="sentenceItem">
-            {{sentence|highlight}}——{{sentence.chuchu}}
+            {{example|highlight}}——{{example.sentence.chuchu}}
         </p>
     </div>
 {% endfor %}
@@ -30,16 +30,23 @@
         <form action="{% url 'wenyan:submit_sentence' explanation.id %}" method="post">
         {% csrf_token %}
             <input type="hidden" value="{{word_text}}" id="word_text">
-            <p>特殊句式：
-            <select name="jushi">
-            {% for choice in jushi_options %}
-                <option value="{{choice}}">{{choice}}</option>
-            {% endfor %}
-            </select>
-            </p>
             <p>例句内容：<input class="textInput" type="text" name="sentence_text" id="sentence_text" required></p>
             <p id="appear_choice"></p>
-            <p>例句中包含<input type="text" name="tongjia_count" id="tongjia_count" required>个通假字</p>
+            <p>本例句中“{{word_text}}”的词类活用：
+                <select name="live_use">
+                {% for choice in live_use_options %}
+                    <option value="{{choice}}">{{choice}}</option>
+                {% endfor %}
+                </select>
+            </p>
+            <p>特殊句式：
+                <select name="jushi">
+                {% for choice in jushi_options %}
+                    <option value="{{choice}}">{{choice}}</option>
+                {% endfor %}
+                </select>
+            </p>
+            <p>例句中包含<input type="text" name="tongjia_count" id="tongjia_count" value="0" required>个通假字</p>
             <p id="tongjia_input"></p>
             <p>出处：<input class="textInput" type="text" name="chuchu" required></p>
             <div class="buttonWrap">

@@ -19,6 +19,14 @@
             <input type="text" name="search" id="search">
             <input type="submit" id="submit" value=" ">
         </form>
+        <ul id="search_tips"></ul>
     </div>
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{% static 'wenyan/index.js' %}"></script>
+    <script>
+        $.ajaxSetup({
+            headers:{"X-CSRFTOKEN": "{{csrf_token}}"},
+        })
+    </script>
 </body>
 </html>

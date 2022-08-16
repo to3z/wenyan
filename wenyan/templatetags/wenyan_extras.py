@@ -5,13 +5,13 @@ from django.utils.safestring import mark_safe
 register=template.Library()
 
 @register.filter
-def highlight(sentence):
+def highlight(example):
     """
-    给sentence中的appear部分添加class="highlight"
+    给example所属sentence中的appear部分添加class="highlight"
     """
     cur=0
-    all_appears=sentence.appear_set.all()
-    sentence_text=sentence.sentence_text
+    all_appears=example.appear_set.all()
+    sentence_text=example.sentence.sentence_text
     output=''
     for appear in all_appears:
         output+=sentence_text[cur:appear.appear_begin]
