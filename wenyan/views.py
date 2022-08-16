@@ -66,20 +66,20 @@ def submit_sentence(request,explanation_id):
     try:
         sentence_stored=Sentence.objects.get(sentence_text=POST_sentence_text)
     except Sentence.DoesNotExist:
-        sentence_stored=Sentence(
-            sentence_text=POST_sentence_text,
-            jushi=request.POST.get('jushi'),
-            chuchu=request.POST.get('chuchu'),
-        )
-        sentence_stored.save()
+        sentence_stored=Sentence()
+    sentence_stored.sentence_text=POST_sentence_text
+    sentence_stored.jushi=request.POST.get('jushi')
+    sentence_stored.chuchu=request.POST.get('chuchu')
+    sentence_stored.save()
+    for tongjia in sentence_stored.tongjia_set.all():
+        tongjia.delete()
+    POST_before,POST_after=request.POST.getlist('before'),request.POST.getlist('after')
+    for i in range(int(request.POST['tongjia_count'])):
+        sentence_stored.tongjia_set.create(before=POST_before[i],after=POST_after[i])
     example=explanation_stored.example_set.create(
         sentence=sentence_stored,
         live_use=request.POST.get('live_use'),
     )
-    # live_use
-    POST_before,POST_after=request.POST.getlist('before'),request.POST.getlist('after')
-    for i in range(int(request.POST['tongjia_count'])):
-        sentence_stored.tongjia_set.create(before=POST_before[i],after=POST_after[i])
     for begin_end in request.POST.getlist('appear_pos'):
         tmp_pair=begin_end.split('-')
         example.appear_set.create(appear_begin=int(tmp_pair[0]),appear_end=int(tmp_pair[1]))

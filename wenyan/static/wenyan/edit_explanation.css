@@ -41,6 +41,7 @@
 #word{
     font-size: 60px;
     text-align: center;
+    margin-top: 80px;
 }
 #formWrap{
     display: none;
