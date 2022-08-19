@@ -22,8 +22,8 @@
 {% for explanation in word.explanation_set.all %}
     <p class="explanation">[{{explanation.part_of_speech}}]&emsp;{{explanation.explanation_text}}</p>
     <p class="sentence">
-    {% for sentence in explanation.sentence_set.all %}
-        {{sentence|highlight}}——{{sentence.chuchu}}
+    {% for example in explanation.example_set.all %}
+        {{example|highlight}}——{{example.sentence.chuchu.chuchu_text}}
         <br />
     {% endfor %}
     </p>

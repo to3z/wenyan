@@ -12,4 +12,7 @@ urlpatterns = [
     path('edit_sentence/<int:explanation_id>',views.edit_sentence,name="edit_sentence"),
     path('submit_sentence/<int:explanation_id>',views.submit_sentence,name="submit_sentence"),
     path('index_tips/',views.index_tips,name="index_tips"),
+    path('sentence_tips/',views.sentence_tips,name="sentence_tips"),
+    path('id2info/',views.id2info,name="id2info"),
+    path('chuchu_tips/',views.chuchu_tips,name="chuchu_tips"),
 ]

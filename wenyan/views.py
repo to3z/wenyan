@@ -4,7 +4,7 @@ from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponseRedirect,HttpResponse,JsonResponse
 from django.urls import reverse
 
-from .models import Word,Explanation,Sentence,Example,Tongjia,Appear
+from .models import Word,Explanation,Sentence,Example,Tongjia,Appear,Chuchu
 
 def index(request):
     return render(request,'wenyan/index.html',{})
@@ -61,15 +61,25 @@ def edit_sentence(request,explanation_id):
 
 def submit_sentence(request,explanation_id):
     explanation_stored=get_object_or_404(Explanation,pk=explanation_id)
+    # 是否已经存储了该sentence
     sentence_stored=None
     POST_sentence_text=request.POST.get('sentence_text')
     try:
         sentence_stored=Sentence.objects.get(sentence_text=POST_sentence_text)
     except Sentence.DoesNotExist:
         sentence_stored=Sentence()
+    # 是否已经存储了该chuchu
+    POST_chuchu=request.POST.get('chuchu')
+    chuchu=None
+    try:
+        chuchu=Chuchu.objects.get(chuchu_text=POST_chuchu)
+    except Chuchu.DoesNotExist:
+        chuchu=Chuchu(chuchu_text=POST_chuchu)
+        chuchu.save()
+    # 更新sentence信息
     sentence_stored.sentence_text=POST_sentence_text
     sentence_stored.jushi=request.POST.get('jushi')
-    sentence_stored.chuchu=request.POST.get('chuchu')
+    sentence_stored.chuchu=chuchu
     sentence_stored.save()
     for tongjia in sentence_stored.tongjia_set.all():
         tongjia.delete()
@@ -86,6 +96,31 @@ def submit_sentence(request,explanation_id):
     return HttpResponseRedirect(reverse('wenyan:edit_sentence',args=(explanation_id,)))
 
 def index_tips(request):
-    part=request.POST.get('search_text')
+    part=request.POST.get('search_part')
     tips=[word.word_text for word in Word.objects.filter(word_text__contains=part)]
+    return JsonResponse({"data":tips[-5:],"code":200,},json_dumps_params={'ensure_ascii':False})
+
+def sentence_tips(request):
+    part=request.POST.get('sentence_part')
+    tips=[{"text":sentence.sentence_text,"id":sentence.id} for sentence in Sentence.objects.filter(sentence_text__contains=part)]
+    return JsonResponse({"data":tips[-5:],"code":200,},json_dumps_params={'ensure_ascii':False})
+
+def id2info(request):
+    """
+    通过sentence_tips的<li>元素的id找到对应的sentence
+    并将它的信息填入表单
+    """
+    sentence_id=request.POST.get('sentence_id') # 这里不需要转换成int
+    sentence=Sentence.objects.get(id=sentence_id)
+    tips={
+        "jushi":sentence.jushi,
+        "chuchu":sentence.chuchu.chuchu_text,
+        "tongjia":[{"before":tj.before,"after":tj.after} for tj in sentence.tongjia_set.all()],
+    }
+    print("Encounter: ",sentence.sentence_text)
     return JsonResponse({"data":tips,"code":200,},json_dumps_params={'ensure_ascii':False})
+
+def chuchu_tips(request):
+    part=request.POST.get('chuchu_part')
+    tips=[chuchu.chuchu_text for chuchu in Chuchu.objects.filter(chuchu_text__contains=part)]
+    return JsonResponse({"data":tips[-5:],"code":200,},json_dumps_params={'ensure_ascii':False})

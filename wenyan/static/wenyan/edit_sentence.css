@@ -50,6 +50,10 @@
 #formWrap{
     display:none;
 }
+#sentence_text{
+    width:700px;
+    border: 1px solid lightgray;
+}
 .sentenceItem{
     padding:10px;
     box-sizing: border-box;
@@ -84,4 +88,35 @@
 }
 .darkButton:hover{
     color:rgb(91, 130, 202);
+}
+#chuchu{
+    width:350px;
+    border: 1px solid lightgray;
+}
+#sentence_tips,#chuchu_tips{
+    list-style-type: none;
+    border: 1px solid lightgray;
+    display:none;
+    padding-left: 0px;
+    background-color: white;
+    border-top: none;
+}
+#sentence_tips{
+    margin: 0px 0px 0px 154px;
+    width: 704px;
+}
+#chuchu_tips{
+    margin: 0px 0px 0px 92px;
+    width: 354px;
+}
+#sentence_tips li, #chuchu_tips li{
+    padding: 8px;
+    font-size: 25px;
+    /* border-bottom: 1px solid lightgray; */
+}
+#sentence_tips li:hover, #chuchu_tips li:hover{
+    background-color: rgb(223, 240, 255);
+}
+#chuchuWrap{
+    margin-bottom: 30px;
 }

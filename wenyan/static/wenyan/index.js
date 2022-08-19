@@ -6,19 +6,16 @@ $(document).ready(function(){
         {
             $("#search_tips").html("");
             $("#search_tips").hide();
-        }
-        else
-        {
-            $.post("/wenyan/index_tips/",{search_text:part},function(result){
+        }else{
+            $.post("/wenyan/index_tips/",{search_part:part},function(result){
                 if(result.code==200){
                     let htmlStr="";
                     for(let i=0;i<result.data.length;++i)
                         htmlStr+=`<li><a class="tipA" href="/wenyan/word/${result.data[i]}/">${result.data[i]}</a></li>`;
-                    if(htmlStr!="")
-                    {
+                    if(htmlStr!=""){
                         $("#search_tips").html(htmlStr);
                         $("#search_tips").show();
-                        $(this).css("border-bottom","none");
+                        $(this).css("border-bottom","none"); // 不知这句为何无用
                     }
                 }
             },"json");
