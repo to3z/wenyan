@@ -15,7 +15,9 @@ def highlight(example):
     output=''
     for appear in all_appears:
         output+=sentence_text[cur:appear.appear_begin]
-        output+='<span class="highlight">'+sentence_text[appear.appear_begin:appear.appear_end]+'</span>'
+        for i in range(appear.appear_begin,appear.appear_end):
+            output+='<span class="highlight">'+sentence_text[i]+'</span>'
+        # output+='<span class="highlight">'+sentence_text[appear.appear_begin:appear.appear_end]+'</span>'
         cur=appear.appear_end
     output+=sentence_text[cur:]
     return mark_safe(output)

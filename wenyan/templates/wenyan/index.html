@@ -6,20 +6,21 @@
     <link rel="shortcut icon" href="{% static 'wenyan/img/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'wenyan/index.css' %}">
 </head>
-<body>
+<body onload="resize_safari()">
     <div id="topOfTheWorld">
         <ul id="naviBar">
-            <li class="naviLink"><a class="topA" href="https://ruaruarua.neocities.org/frontpage.html">答题</a></li>
-            <li class="naviLink curPage"><a class="topA" href="{% url 'wenyan:index' %}">搜索</a></li>
+            <li class="naviLink"><a class="topA" href="{% url 'wenyan:contest_mp' %}">答题</a></li>
+            <li class="naviLink"><a class="topA" href="{% url 'wenyan:index' %}">搜索</a></li>
         </ul>
     </div>
     <p id="title">在线文言文字典</p>
     <div id="searchWrap">
         <form action="{% url 'wenyan:search_result' %}" method="get">
             <input type="text" name="search" id="search">
-            <input type="submit" id="submit" value=" ">
+            <!-- <input type="submit" id="submit" value=" "> -->
+            <input type="submit" id="submit" value="搜索">
+            <ul id="search_tips"></ul>
         </form>
-        <ul id="search_tips"></ul>
     </div>
     <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% static 'wenyan/index.js' %}"></script>

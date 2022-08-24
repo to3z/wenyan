@@ -3,25 +3,38 @@
 <head>
 {% load static %}
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'wenyan/img/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'wenyan/edit_explanation.css' %}">
 </head>
 <body>
     <div id="topOfTheWorld">
         <ul id="naviBar">
-            <li class="naviLink"><a class="topA" href="https://ruaruarua.neocities.org/frontpage.html">答题</a></li>
+            <li class="naviLink"><a class="topA" href="{% url 'wenyan:contest_mp' %}">答题</a></li>
             <li class="naviLink"><a class="topA" href="{% url 'wenyan:index' %}">搜索</a></li>
             <li class="naviRLink"><a class="topA" href="{% url 'wenyan:word' word.word_text %}">返回</a></li>
         </ul>
     </div>
     <p id="word">编辑——{{word.word_text}}</p>
 {% for explanation in word.explanation_set.all %}
-    <div class="explanationWrap">
-        <p class="explanationItem">
-            [{{explanation.part_of_speech}}]&emsp;{{explanation.explanation_text}}
-        </p>
-        <p class="explanationOption">
-            <a class="editSentence" href="{% url 'wenyan:edit_sentence' explanation.id %}">编辑例句</a>
-        </p>
+    <div>
+        <div class="explanationWrap">
+            <p class="explanationItem">
+                [{{explanation.part_of_speech}}]&emsp;{{explanation.explanation_text}}
+            </p>
+            <p class="explanationOption">
+                <a class="editSentence" href="{% url 'wenyan:edit_sentence' explanation.id %}">编辑例句</a>
+            </p>
+            <p class="explanationOption explanationDelete">删除</p>
+        </div>
+        <form class="deleteConf" action="{% url 'wenyan:delete_explanation' %}" method="post">
+        {% csrf_token %}
+            <p>确定要删除此义项吗？</p>
+            <input name="explanation_id" type="hidden" value="{{explanation.id}}">
+            <div class="buttonWrap">
+                <button type="button" class="darkButton deleteCancel">取消</button>
+                <button type="submit" class="darkButton">确定</button>
+            </div>
+        </form>
     </div>
 {% endfor %}
     <div class="explanationWrap" id="addExplanation">
@@ -37,21 +50,15 @@
             {% endfor %}
             </select>
             </p>
-            <p>词类活用：
-            <select name="live_use">
-            {% for choice in live_use_options %}
-                <option value="{{choice}}">{{choice}}</option>
-            {% endfor %}
-            </select>
-            </p>
             <label>古今异义<input class="checkboxInput" type="checkbox" name="gu_jin" value="gu_jin"></label>
             <p>解释：<input class="textInput" name="explanation_text" type="text" required></p>
             <div class="buttonWrap">
-                <button type="button" id="backButton" class="darkButton"> BACK </button>
-                <button type="submit" class="darkButton"> OK </button>
+                <button type="button" id="backButton" class="darkButton">取消</button>
+                <button type="submit" class="darkButton">确定</button>
             </div>
         </form>
     </div>
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% static 'wenyan/edit_explanation.js' %}"></script>
 </body>
 </html>

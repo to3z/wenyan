@@ -4,7 +4,7 @@ function highlight(sentence,begin,end,checked)
     if(checked)ret+=`checked="checked"`;
     ret+=">";
     ret+=sentence.slice(0,begin);
-    ret+=`<span class="highlight">`+sentence.slice(begin,end)+"</span>";
+    ret+=`<span class="highlight_choice">`+sentence.slice(begin,end)+"</span>";
     ret+=sentence.slice(end);
     ret+="</label>";
     return ret;
@@ -128,13 +128,14 @@ function chuchu_renewed(elem){
         },"json");
     }
 }
-function resize_chrome(){
-    if(navigator.userAgent.indexOf("Chrome")!=-1){
-        $("#sentence_tips").css("margin-left","150px");
-        $("#chuchu_tips").css("margin-left","90px");
-        $("#sentence_text").css("border-radius","0px");
-        $("#chuchu").css("border-radius","0px");
-    }
+function show_deleteConf(elem){
+    // elem: class="sentenceOption sentenceDelete"
+    $(".deleteConf").hide(); // 隐藏其它deleteConf
+    $(elem).parent().siblings(".deleteConf").show(); // 只显示本deleteConf
+}
+function hide_deleteConf(elem){
+    // elem: class="darkButton deleteCancel"
+    $(elem).parents(".deleteConf").hide();
 }
 $(document).ready(function(){
     $("#sentence_text").keyup(function(){sentence_text_renewed(this);});
@@ -143,4 +144,6 @@ $(document).ready(function(){
     $("#chuchu").keyup(function(){chuchu_renewed(this);});
     $("#chuchu").focus(function(){chuchu_renewed(this);});
     $("#chuchu").blur(function(){hide_chuchu_tips();});
+    $(".sentenceDelete").click(function(){show_deleteConf(this)});
+    $(".deleteCancel").click(function(){hide_deleteConf(this)});
 });

@@ -4,13 +4,13 @@
 {% load static %}
 {% load wenyan_extras %}
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'wenyan/img/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'wenyan/edit_sentence.css' %}">
 </head>
-<body onload="resize_chrome()">
-<!-- <body> -->
+<body>
     <div id="topOfTheWorld">
         <ul id="naviBar">
-            <li class="naviLink"><a class="topA" href="https://ruaruarua.neocities.org/frontpage.html">答题</a></li>
+            <li class="naviLink"><a class="topA" href="{% url 'wenyan:contest_mp' %}">答题</a></li>
             <li class="naviLink"><a class="topA" href="{% url 'wenyan:index' %}">搜索</a></li>
             <li class="naviRLink"><a class="topA" href="{% url 'wenyan:edit_explanation' word_text %}">返回</a></li>
         </ul>
@@ -18,10 +18,23 @@
     <p id="word">编辑例句——{{word_text}}</p>
     <p id="explanation">[{{explanation.part_of_speech}}]{{explanation.explanation_text}}</p>
 {% for example in explanation.example_set.all %}
-    <div class="sentenceWrap">
-        <p class="sentenceItem">
-            {{example|highlight}}——{{example.sentence.chuchu.chuchu_text}}
-        </p>
+    <div>
+        <div class="sentenceWrap">
+            <input type="hidden" class="exampleId" val="{{example.id}}">
+            <p class="sentenceItem">
+                {{example|highlight}}——{{example.sentence.chuchu.chuchu_text}}
+            </p>
+            <p class="sentenceOption sentenceDelete">删除</p>
+        </div>
+        <form class="deleteConf" action="{% url 'wenyan:delete_example' %}" method="post">
+        {% csrf_token %}
+            <p>确定要删除此例句吗？</p>
+            <input name="example_id" type="hidden" value="{{example.id}}">
+            <div class="buttonWrap">
+                <button type="button" class="darkButton deleteCancel">取消</button>
+                <button type="submit" class="darkButton">确定</button>
+            </div>
+        </form>
     </div>
 {% endfor %}
     <div class="sentenceWrap" id="addSentence">
@@ -31,7 +44,7 @@
         <form action="{% url 'wenyan:submit_sentence' explanation.id %}" method="post">
         {% csrf_token %}
             <input type="hidden" value="{{word_text}}" id="word_text">
-            <div>
+            <div id="sentence_and_tips">
                 例句内容：<input class="textInput" type="text" name="sentence_text" id="sentence_text" required>
                 <ul id="sentence_tips"></ul>
             </div>
@@ -52,13 +65,13 @@
             </p>
             <p>例句中包含<input type="text" class="textInput shortInput" name="tongjia_count" id="tongjia_count" value="0" required>个通假字</p>
             <p id="tongjia_input"></p>
-            <div id="chuchuWrap">
+            <div id="chuchu_and_tips">
                 出处：<input class="textInput" type="text" name="chuchu" id="chuchu" required>
                 <ul id="chuchu_tips"></ul>
             </div>
             <div class="buttonWrap">
-                <button type="button" id="backButton" class="darkButton"> BACK </button>
-                <button type="submit" class="darkButton"> OK </button>
+                <button type="button" id="backButton" class="darkButton">取消</button>
+                <button type="submit" class="darkButton">确定</button>
             </div>
         </form>
     </div>

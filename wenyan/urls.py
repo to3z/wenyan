@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from . import views,newviews
 
 app_name='wenyan'
 urlpatterns = [
@@ -15,4 +15,9 @@ urlpatterns = [
     path('sentence_tips/',views.sentence_tips,name="sentence_tips"),
     path('id2info/',views.id2info,name="id2info"),
     path('chuchu_tips/',views.chuchu_tips,name="chuchu_tips"),
+    path('delete_example/',views.delete_example,name="delete_example"),
+    path('delete_explanation/',views.delete_explanation,name="delete_explanation"),
+
+    path('contest/',newviews.Mainpage,name="contest_mp"),
+    path('contest/exercise/',newviews.ExercisePage, name="contest_ep"),
 ]

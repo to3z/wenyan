@@ -1,0 +1,48 @@
+a{
+	text-decoration: none;
+	text-decoration-color: none;
+}
+
+#a1{
+	font-family: YouYuan;
+}
+#a11,#a12{
+	padding: 5px;
+	border-radius: 3px;
+}
+#a11:link,#a12:link{color: grey;}
+#a11:visited,#a12:visited{color: grey;}
+#a11:hover,#a12:hover{box-shadow: 0px 0px 10px black;border-bottom: solid #3C80C4;}
+#start:link,#prac:link{color: #551A8B;}
+
+#a2{
+	margin: 0 auto;
+	text-align: center;
+	height: 100px;
+	line-height: 100px;
+	width: 700px;
+	font-size: 76px;
+	color: darkred;
+	font-family: MingLiu;
+	margin-top: 212px;
+}
+
+#a3{
+	margin: 0 auto;
+	text-align: center;
+	font-family: MingLiu;
+	color: darkred;
+	font-size: 40px;
+	margin-top: 100px;
+	width: 400px
+}
+#a4{
+	margin: 0 auto;
+	text-align: center;
+	font-family: MingLiu;
+	color: darkred;
+	font-size: 40px;
+	margin-top: 60px;
+	width: 400px
+}
+

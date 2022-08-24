@@ -124,3 +124,15 @@ def chuchu_tips(request):
     part=request.POST.get('chuchu_part')
     tips=[chuchu.chuchu_text for chuchu in Chuchu.objects.filter(chuchu_text__contains=part)]
     return JsonResponse({"data":tips[-5:],"code":200,},json_dumps_params={'ensure_ascii':False})
+
+def delete_example(request):
+    example=get_object_or_404(Example,id=request.POST.get('example_id'))
+    explanation_id=example.explanation.id
+    example.delete()
+    return HttpResponseRedirect(reverse('wenyan:edit_sentence',args=(explanation_id,)))
+
+def delete_explanation(request):
+    explanation=get_object_or_404(Explanation,id=request.POST.get('explanation_id'))
+    word=explanation.word.word_text
+    explanation.delete()
+    return HttpResponseRedirect(reverse('wenyan:edit_explanation',args=(word,)))

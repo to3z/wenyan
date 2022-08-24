@@ -1,4 +1,9 @@
 // 搜索联想
+function resize_safari(){
+    if(navigator.userAgent.indexOf("Safari")!=-1){
+        $("#search_tips").css("padding-right","1px");
+    }
+}
 $(document).ready(function(){
     $("#search").keyup(function(){
         let part=$(this).val();
@@ -15,7 +20,7 @@ $(document).ready(function(){
                     if(htmlStr!=""){
                         $("#search_tips").html(htmlStr);
                         $("#search_tips").show();
-                        $(this).css("border-bottom","none"); // 不知这句为何无用
+                        // $("#search_tips").css("display","inline-block");
                     }
                 }
             },"json");

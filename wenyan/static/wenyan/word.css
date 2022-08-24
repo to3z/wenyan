@@ -1,6 +1,5 @@
 *{
     font-family: "STSong";
-    font-weight: bold;
 }
 /* topOfTheWorld */
 #topOfTheWorld{
@@ -21,20 +20,16 @@
 .naviRLink{
     float:right;
 }
-.curPage{
-    border-bottom: 2px rgb(55, 89, 152) solid;
-    background-color: rgb(223, 240, 255);
-}
 .topA{
     text-decoration: none;
     font-size:30px;
     display:block;
-    padding:20px;
+    padding:15px;
     color:rgb(55, 89, 152);
 }
 .topA:hover{
     color:rgb(91, 130, 202);
-    background-color: rgb(223, 240, 255);
+    border-bottom: 2px rgb(91, 130, 202) solid;
 }
 /* endOfTheWorld */
 #word{
@@ -48,9 +43,17 @@
 .sentence{
     margin-left:40px;
     font-size:25px;
+    line-height: 1.7;
 }
 .highlight{
-    color:rgb(55, 89, 152);
+    /* color:rgb(55, 89, 152); */
+    position: relative;
+}
+.highlight:before{
+    content: "·";
+    position: absolute;
+    top: 10px;
+    left: 0px;
 }
 #notFoundInfo{
     font-size:30px;

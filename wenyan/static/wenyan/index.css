@@ -1,7 +1,5 @@
 *{
     font-family: "STSong";
-    font-weight: bold;
-    /* text-align: center; */
 }
 /* topOfTheWorld */
 #topOfTheWorld{
@@ -22,20 +20,16 @@
 .naviRLink{
     float:right;
 }
-.curPage{
-    border-bottom: 2px rgb(55, 89, 152) solid;
-    background-color: rgb(223, 240, 255);
-}
 .topA{
     text-decoration: none;
     font-size:30px;
     display:block;
-    padding:20px;
+    padding:15px;
     color:rgb(55, 89, 152);
 }
 .topA:hover{
     color:rgb(91, 130, 202);
-    background-color: rgb(223, 240, 255);
+    border-bottom: 2px rgb(91, 130, 202) solid;
 }
 /* endOfTheWorld */
 #title{
@@ -44,13 +38,13 @@
     font-size: 70px;
     color:rgb(55, 89, 152);
 }
-#search,#submit,#search_tips{
-    position: relative;
-    left: 230px;
+#searchWrap form{
+    margin:auto;
+    width:70%;
 }
 #search{
     height:50px;
-    width:60%;
+    width:80%;
     border:4px rgb(55, 89, 152) solid;
     color:rgb(55, 89, 152);
     font-size:34px;
@@ -58,22 +52,29 @@
     text-align: left;
 }
 #submit{
-    height:50px;
-    width:50px;
-    background:url("img/scanner.png");
-    background-repeat: no-repeat;
-    background-size: auto 100%;
+    height:60px;
+    width:15%;
+    /* width:50px; */
+    /* background:url("img/scanner.png"); */
+    /* background-repeat: no-repeat; */
+    /* background-size: auto 100%; */
+    color:white;
+    background-color: rgb(55, 89, 152);
     border: none;
-    margin-left: 10px;
+    margin-left:-4px;
+    padding: 1px 6px 1px 6px;
+    /* margin-left: 10px; */
     font-size:34px;
+}
+#submit:hover{
+    color:rgb(223, 240, 255);
 }
 #search_tips{
     list-style-type: none;
-    padding-left:0px;
-    width: 60%;
+    width:80%;
     border: 4px solid rgb(55, 89, 152);
     border-top: none;
-    padding: 6px 2px 6px 9px;
+    padding: 6px 2px 6px 10px;
     margin:0px;
     display:none;
 }

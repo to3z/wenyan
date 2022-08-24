@@ -1,6 +1,5 @@
 *{
     font-family: "STSong";
-    font-weight: bold;
     font-size:30px;
 }
 /* topOfTheWorld */
@@ -22,20 +21,16 @@
 .naviRLink{
     float:right;
 }
-.curPage{
-    border-bottom: 2px rgb(55, 89, 152) solid;
-    background-color: rgb(223, 240, 255);
-}
 .topA{
     text-decoration: none;
     font-size:30px;
     display:block;
-    padding:20px;
+    padding:15px;
     color:rgb(55, 89, 152);
 }
 .topA:hover{
     color:rgb(91, 130, 202);
-    background-color: rgb(223, 240, 255);
+    border-bottom: 2px rgb(91, 130, 202) solid;
 }
 /* endOfTheWorld */
 #word{
@@ -51,23 +46,30 @@ a{
     text-decoration: none;
 }
 .explanationItem{
+    float:left;
     padding:10px;
-    box-sizing: border-box;
+}
+.explanationWrap{
+    overflow:hidden;/* 撑开这个div */
 }
 .explanationWrap:hover{
     background-color: rgb(223, 240, 255);
 }
-.explanationWrap{
-    display: flex;
-    justify-content: space-between;
-}
 .explanationOption{
+    float:right;
     color:rgb(55, 89, 152);
     padding:10px;
-    box-sizing: border-box;
 }
-.editSentence{
+.editSentence,#addExplanation .explanationItem{
+    /* 编辑例句 添加义项 */
     color:rgb(55, 89, 152);
+}
+.editSentence:hover, #addExplanation .explanationItem:hover, .explanationOption:hover{
+    /* 编辑例句 添加义项 修改 删除 */
+    color: rgb(91, 130, 202);
+}
+.deleteConf{
+    display:none;
 }
 select{
     font-size: 25px;
@@ -83,13 +85,12 @@ select{
 .darkButton{
     border:none;
     padding:7px 3px 3px 3px;
-    float:left;
-    width:50%;
+    /* float:left; */
+    width:49%;
     color: rgb(55, 89, 152);
     background-color: rgb(223, 240, 255);
-    box-sizing:border-box;
+    /* box-sizing:border-box; */
     text-align:center;
-    font-family:Times;
 }
 .darkButton:hover{
     color:rgb(91, 130, 202);
