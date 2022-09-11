@@ -37,14 +37,14 @@ class Example(models.Model):
     sentence=models.ForeignKey(Sentence,on_delete=models.CASCADE,null=True) # 这个CASCADE不会真正被触发，为了避免报错而写了CASCADE（实际上仅仅表示关联而不表示从属）
     live_use=models.CharField(max_length=6)
     def __str__(self):
-        return self.explanation.explanation_text + " -> " + self.sentence.sentence_text
+        return self.sentence.sentence_text+" -> "+self.explanation.word.word_text+"("+self.explanation.explanation_text+")"
 
 class Tongjia(models.Model):
     sentence=models.ForeignKey(Sentence,on_delete=models.CASCADE,null=True)
     before=models.CharField(max_length=MAXLEN)
     after=models.CharField(max_length=MAXLEN)
     def __str__(self):
-        return self.before+' 通 '+self.after
+        return self.before+' 同 '+self.after
 
 class Appear(models.Model):
     example=models.ForeignKey(Example,on_delete=models.CASCADE,null=True)
@@ -52,3 +52,18 @@ class Appear(models.Model):
     appear_end=models.IntegerField()
     def __str__(self):
         return '['+str(self.appear_begin)+','+str(self.appear_end)+')'
+
+class Example_live_use(models.Model):
+    example=models.ForeignKey(Example,on_delete=models.CASCADE,null=True)
+    def __str__(self):
+        return self.example.sentence.sentence_text
+
+class Sentence_jushi(models.Model):
+    sentence=models.ForeignKey(Sentence,on_delete=models.CASCADE,null=True)
+    def __str__(self):
+        return self.sentence.sentence_text
+
+class Visit(models.Model):
+    visit_score=models.FloatField()
+    def __str__(self):
+        return '成绩：'+str(self.visit_score)

@@ -4,7 +4,7 @@ from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponseRedirect,HttpResponse,JsonResponse
 from django.urls import reverse
 
-from .models import Word,Explanation,Sentence,Example,Tongjia,Appear,Chuchu
+from .models import *
 
 def index(request):
     return render(request,'wenyan/index.html',{})
@@ -41,13 +41,13 @@ def edit_explanation(request,word):
     return render(request,'wenyan/edit_explanation.html',context)
 
 def submit_explanation(request,word_id):
-    word=get_object_or_404(Word,pk=word_id)
-    word.explanation_set.create(
+    word_stored=get_object_or_404(Word,pk=word_id)
+    word_stored.explanation_set.create(
         explanation_text=request.POST['explanation_text'],
         part_of_speech=request.POST['part_of_speech'],
         gu_jin=(request.POST.get('gu_jin')=='gu_jin'),
     )
-    return HttpResponseRedirect(reverse('wenyan:edit_explanation',args=(word.word_text,)))
+    return HttpResponseRedirect(reverse('wenyan:edit_explanation',args=(word_stored.word_text,)))
 
 def edit_sentence(request,explanation_id):
     explanation=Explanation.objects.get(pk=explanation_id)
@@ -61,13 +61,7 @@ def edit_sentence(request,explanation_id):
 
 def submit_sentence(request,explanation_id):
     explanation_stored=get_object_or_404(Explanation,pk=explanation_id)
-    # 是否已经存储了该sentence
-    sentence_stored=None
-    POST_sentence_text=request.POST.get('sentence_text')
-    try:
-        sentence_stored=Sentence.objects.get(sentence_text=POST_sentence_text)
-    except Sentence.DoesNotExist:
-        sentence_stored=Sentence()
+
     # 是否已经存储了该chuchu
     POST_chuchu=request.POST.get('chuchu')
     chuchu=None
@@ -76,23 +70,59 @@ def submit_sentence(request,explanation_id):
     except Chuchu.DoesNotExist:
         chuchu=Chuchu(chuchu_text=POST_chuchu)
         chuchu.save()
-    # 更新sentence信息
+
+    # 是否已经存储了该sentence
+    sentence_stored=None
+    original_jushi=None
+    current_jushi=request.POST.get('jushi')
+    POST_sentence_text=request.POST.get('sentence_text')
+    try:
+        sentence_stored=Sentence.objects.get(sentence_text=POST_sentence_text)
+        original_jushi=sentence_stored.jushi
+    except Sentence.DoesNotExist:
+        sentence_stored=Sentence()
+
+    # 更新sentence
     sentence_stored.sentence_text=POST_sentence_text
-    sentence_stored.jushi=request.POST.get('jushi')
+    sentence_stored.jushi=current_jushi
     sentence_stored.chuchu=chuchu
     sentence_stored.save()
+
+    # 更新sentence_jushi
+    if ((not original_jushi) or original_jushi=="无特殊句式") and current_jushi!="无特殊句式":
+        # 1. original_jushi=None
+        #    这是一句新加入的例句，并且有特殊句式
+        # 2. original_jushi="无特殊句式"
+        #    原先错误地判断为无特殊句式，现在经过更改，有特殊句式
+        sentence_stored.sentence_jushi_set.create()
+    elif original_jushi!="无特殊句式" and current_jushi=="无特殊句式":
+        # 原先错误地判断为有特殊句式，现在经过更改，无特殊句式
+        for sentence_jushi in sentence_stored.sentence_jushi_set.all(): # 实际上应该只循环一次
+            sentence_jushi.delete()
+
+    # 更新tongjia
     for tongjia in sentence_stored.tongjia_set.all():
         tongjia.delete()
     POST_before,POST_after=request.POST.getlist('before'),request.POST.getlist('after')
     for i in range(int(request.POST['tongjia_count'])):
         sentence_stored.tongjia_set.create(before=POST_before[i],after=POST_after[i])
+    
+    # 添加example
+    POST_live_use=request.POST.get('live_use')
     example=explanation_stored.example_set.create(
         sentence=sentence_stored,
-        live_use=request.POST.get('live_use'),
+        live_use=POST_live_use,
     )
+
+    # 添加example_live_use
+    if POST_live_use!="无词类活用":
+        example.example_live_use_set.create()
+    
+    # 为example添加appear
     for begin_end in request.POST.getlist('appear_pos'):
         tmp_pair=begin_end.split('-')
         example.appear_set.create(appear_begin=int(tmp_pair[0]),appear_end=int(tmp_pair[1]))
+    
     return HttpResponseRedirect(reverse('wenyan:edit_sentence',args=(explanation_id,)))
 
 def index_tips(request):

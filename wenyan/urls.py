@@ -19,5 +19,8 @@ urlpatterns = [
     path('delete_explanation/',views.delete_explanation,name="delete_explanation"),
 
     path('contest/',newviews.Mainpage,name="contest_mp"),
+    path('contest_hy/',newviews.Mainpage_hy,name="contest_hy_mp"),
     path('contest/exercise/',newviews.ExercisePage, name="contest_ep"),
+    path('contest/test/',newviews.TestPage,name="contest_tp"),
+    path('contest/answer/',newviews.AnswerPage,name="contest_ap"),
 ]

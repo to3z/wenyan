@@ -3,19 +3,25 @@
     <head >
 	{% load static %}
 	{% load wenyan_extras %}
+        {% favicon %}
         <meta charset="UTF-8" />
         <title>文言文答题</title>
         <link rel="stylesheet" type="text/css" href="{% static 'wenyan/ep.css' %}">
     </head>
     <body >
         <div id="a1">
+            <a href="{% url 'index' %}" title="关于我们" id="a11">主页</a>
             <a href="{% url 'wenyan:index' %}" title="来学文言文吧" id="a11">字典</a>
             <a href="{% url 'wenyan:contest_mp' %}" title="休息一会儿" id="a12">退出</a>
         </div>
         <div id="a2">
-            <div id="type">解释加点字的含义：</div>
-            <p id="qst">{{example|highlight}}</p>
-            <div id="a21"><div id="look">查看答案</div><div id="ans">{{answer.explanation_text}}</div></div>
+            <div id="type">{{etype}}</div>
+            {% if hilight == 0 %}
+                <p id="qst">{{example.sentence_text}}</p>
+            {% else %}
+                <p id="qst">{{example|highlight}}</p>
+            {% endif %}
+            <div id="a21"><div id="look">查看答案</div><div id="ans">{{answer}}</div></div>
         </div>
 	<form action="{% url 'wenyan:contest_ep' %}" method="post">
 	{% csrf_token %}
@@ -23,7 +29,8 @@
             <input type='submit' name="indicate" id="a41" value="上一题">
             <input type='submit' name="indicate" id="a42" value="下一题">
 	    <input type="hidden" name="fuckit" value={{delta}}>
-	    <input type="hidden" name="fuckyou" value={{now}}>
+	    <input type="hidden" name="fuckhim" value={{nowall}}>
+            <input type="hidden" name="fuckher" value={{nowtype}}>
         </div>
 	</form>
     </body>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% load static %}
+{% load wenyan_extras %}
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <title>鱼缸主页</title>
+    {% favicon %}
+</head>
+<body>
+    <div id="topOfTheWorld">
+        <ul id="naviBar">
+            <li class="naviLink"><a class="topA" href="{% url 'index' %}">主页</a></li>
+            <li class="naviLink"><a class="topA" href="{% url 'wenyan:contest_mp' %}">答题</a></li>
+            <li class="naviLink"><a class="topA" href="{% url 'wenyan:index' %}">字典</a></li>
+        </ul>
+    </div>
+    <div id="bodyWrap">
+        <p id="title">鱼缸</p>
+        <h1>关于我们</h1>
+        <h2>鱼缸是鱼的故乡。</h2>
+        <h1>关于文言</h1>
+        <h2>
+            通过文言，我们希望能有条理地整理和检测高中文言文知识。<br />
+            文言包含<a class="dark" href="{% url 'wenyan:contest_mp' %}">答题</a>与<a class="dark" href="{% url 'wenyan:index' %}">字典</a>两个部分，答题页面可以检测各种高中常见的题型，字典页面则用作查询。<br />
+            时至今日，文言项目已经包含{{word_count}}个单词，{{explanation_count}}个义项，{{sentence_count}}句例句。<br />
+            我们的数据来源于用户，任何人都可以向字典中添加内容，作为搜索结果和出题的依据。<br />
+            来巩固你的文言知识吧！<br />
+        </h2>
+        <h1>更多链接</h1>
+        <h2>
+            <a class="dark" href="https://www.zhihu.com/people/dinertone" target="_blank">鱼缸-知乎</a><br />
+            <a class="dark" href="https://www.jianshu.com/u/bf1e738e51d3" target="_blank">鱼缸-简书</a><br />
+        </h2>
+    </div>
+</body>
+</html>

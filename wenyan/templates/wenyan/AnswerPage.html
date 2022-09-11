@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head >
+        {% load static %}
+        {% load wenyan_extras %}
+        {% favicon %}
+        <meta charset="UTF-8" />
+        <title>文言文答题</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'wenyan/ap.css' %}">
+    </head>
+    <body >
+        <div id="a1">
+            <a href="{% url 'index' %}" title="关于我们" id="a11">主页</a>
+            <a href="{% url 'wenyan:index' %}" title="来学文言文吧" id="a11">字典</a>
+            <a href="{% url 'wenyan:contest_mp' %}" title="休息一会儿" id="a12">退出</a>
+            <div id="cnt">{{avr}} {{now}}/{{allnum}}</div>
+        </div>
+        <div id="a2">
+            <div id="type">单项选择题：</div>
+            <p id="qst">{{question}}</p>
+            <p id="txt">
+                {% for text_sent in text %}{{forloop.counter}}. {% if nowtype == 4 %} {{text_sent|highlight}} {% else %}{{text_sent}}{% endif %}<br> {% endfor %}
+            </p>
+            <form>
+                <div id="A"><div id="a23">A.</div><div id="a21">{{choice.0}}</div><input type="radio" readonly {% if choose == 'A' %} checked {% endif %} disabled name="ques" value="A" class="liRight" /></div>
+                <div id="B"><div id="a23">B.</div><div id="a21">{{choice.1}}</div><input type="radio" readonly {% if choose == 'B' %} checked {% endif %} disabled name="ques" value="B" class="liRight" /></div>
+                <div id="C"><div id="a23">C.</div><div id="a21">{{choice.2}}</div><input type="radio" readonly {% if choose == 'C' %} checked {% endif %} disabled name="ques" value="C" class="liRight" /></div>
+                <div id="D"><div id="a23">D.</div><div id="a21">{{choice.3}}</div><input type="radio" readonly {% if choose == 'D' %} checked {% endif %} disabled name="ques" value="D" class="liRight" /></div>
+            </form>
+        </div>
+        <div id="a5">
+        {% if correct %}
+            <img src="{% static '/wenyan/img/true.png' %}">
+            <div id="a51">回答正确</div>
+            <div id="a52">+{{defen}}分</div>
+        {% else %}
+            <img src="{% static '/wenyan/img/false.png' %}">
+            <div id="a53">回答错误</div>
+            <div id="a54">+{{defen}}分</div>
+        {% endif %}
+        </div>
+        <div id="a3">
+            <span id="a31"><b>解析：</b></span><br>
+            答案是{{ans}}。
+            {% for eachreason in reason %}
+                第{{forloop.counter}}句:{% for everyreason in eachreason %} {{everyreason}}; {% endfor %}
+            {% endfor %}
+        </div>
+        <form action="{% url 'wenyan:contest_tp' %}" method="post">
+        {% csrf_token%}
+        <div id="a4">
+            <input type='submit' name="indicate" id="a41" value="上一题">
+            <input type='submit' name="indicate" id="a42" value="结束测试">
+            <input type='submit' name="indicate" id="a43" value="下一题">
+            <input type='hidden' name='cnt' value="{{now}}">
+            <input type='hidden' name='score' value="{{score}}">
+            <input type='hidden' name='lianxu' value="{{lianxu}}">
+            <input type='hidden' name='mx' value="{{allnum}}">
+        </div>
+        </form>
+    </body>
+</html>

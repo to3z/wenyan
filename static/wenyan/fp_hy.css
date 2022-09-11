@@ -1,0 +1,63 @@
+a{
+	text-decoration: none;
+	text-decoration-color: none;
+}
+
+body{
+	background: url(img/fp_pic.png) no-repeat;
+	overflow: hidden;
+	background-size: cover;
+}
+#transbox {
+  margin-top: 170px;
+  margin-left: 500px;
+  margin-right: 500px;
+  margin-bottom: 260px;
+  border-radius: 25px;
+  padding-top: 60px;
+  padding-bottom: 80px;
+  background-color: #ffffff;
+  border: none;
+  opacity: 0.8;
+}
+
+#a1{
+	font-family: YouYuan;
+}
+#a11,#a12{
+	padding: 5px;
+	border-radius: 3px;
+}
+#a11:hover,#a12:hover{
+	border-bottom: solid grey;
+	background: rgba(255,255,255,0.4);
+}
+
+#a2{
+	margin: 0 auto;
+	text-align: center;
+	height: 100px;
+	line-height: 100px;
+	width: 700px;
+	font-size: 76px;
+	color: #2B91D5;
+	font-family: YouYuan;
+}
+
+#a3{
+	margin: 0 auto;
+	text-align: center;
+	font-family: YouYuan;
+	font-size: 40px;
+	margin-top: 100px;
+	width: 400px
+}
+#a4{
+	margin: 0 auto;
+	text-align: center;
+	font-family: YouYuan;
+	font-size: 40px;
+	margin-top: 60px;
+	width: 400px
+}
+

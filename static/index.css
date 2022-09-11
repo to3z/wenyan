@@ -1,0 +1,61 @@
+*{
+    font-family: "STSong";
+    color: white;
+}
+/* topOfTheWorld */
+#topOfTheWorld{
+    width:100%;
+    left:0px;
+    top:0px;
+    position:fixed;
+    /* background-color: rgba(91, 130, 202, 0.7); */
+    background-color: rgba(223, 240, 255, 0.15);
+}
+#naviBar{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+.naviLink{
+    float:left;
+}
+.naviRLink{
+    float:right;
+}
+.topA{
+    text-decoration: none;
+    font-size:30px;
+    display:block;
+    padding:15px;
+}
+.topA:hover{
+    color:rgb(223, 240, 255);
+    border-bottom: 2px rgb(223, 240, 255) solid;
+}
+/* endOfTheWorld */
+body{
+    background: url(img/fish-min.jpg);
+    /* background-repeat: no-repeat; */
+    background-size: cover; 
+    -webkit-background-size: cover; 
+    -o-background-size: cover; 
+}
+#bodyWrap{
+    margin: 0px 20px 0px 20px;
+}
+#title{
+    margin-top:90px;
+    font-size: 70px;
+    /* padding-bottom: 20px; */
+    /* border-bottom: 5px solid white; */
+}
+h1{
+    font-size: 40px;
+}
+h2{
+    line-height: 1.5;
+}
+.dark{
+    color: rgb(167, 197, 222);
+    text-decoration: none;
+}

@@ -2,15 +2,19 @@
 <html>
 <head>
 {% load static %}
+{% load wenyan_extras %}
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="{% static 'wenyan/img/favicon.ico' %}" type="image/x-icon">
+    <!-- <link rel="shortcut icon" href="{% static 'wenyan/img/favicon.ico' %}" type="image/x-icon"> -->
+    {% favicon %}
+    <title>在线文言文字典</title>
     <link rel="stylesheet" href="{% static 'wenyan/index.css' %}">
 </head>
 <body onload="resize_safari()">
     <div id="topOfTheWorld">
         <ul id="naviBar">
+            <li class="naviLink"><a class="topA" href="{% url 'index' %}">主页</a></li>
             <li class="naviLink"><a class="topA" href="{% url 'wenyan:contest_mp' %}">答题</a></li>
-            <li class="naviLink"><a class="topA" href="{% url 'wenyan:index' %}">搜索</a></li>
+            <li class="naviLink"><a class="topA" href="{% url 'wenyan:index' %}">字典</a></li>
         </ul>
     </div>
     <p id="title">在线文言文字典</p>
